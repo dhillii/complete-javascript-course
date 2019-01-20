@@ -9,13 +9,33 @@ GAME RULES:
 
 */
 
-var playerscores, roundScore, activeplayer, diceValue;
+var playerscores, roundScore, activeplayer;
 
 playerScores = [0,0];
 roundScore = 0;
 activeplayer = 0;
 
-diceValue =  Math.floor(Math.random() * 6) + 1;
+
+document.querySelector('.dice').style.display = 'none';
+
+document.querySelector('.btn-roll').addEventListener('click', roll);
+
+function roll(){
+    // Get random number for dice roll
+    diceValue =  Math.floor(Math.random() * 6) + 1;
+
+    // Display result
+    var diceDOM = document.querySelector('.dice');
+    diceDOM.style.display = 'block';
+    diceDOM.src = 'dice-' + diceValue + '.png';
+
+    //Update round score if dice value is not 1
+
+}
+
+
+
 
 //document.querySelector('#current-' + activeplayer).textContent = diceValue;
-document.querySelector('#current-' + activeplayer).innerHTML = '<em>' + diceValue + '</em>';
+//document.querySelector('#current-' + activeplayer).innerHTML = '<em>' + diceValue + '</em>';
+
