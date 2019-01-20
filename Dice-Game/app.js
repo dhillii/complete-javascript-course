@@ -9,11 +9,11 @@ GAME RULES:
 
 */
 
-var playerscores, roundScore, activeplayer;
+var playerscores, roundScore, activePlayer;
 
 playerScores = [0,0];
 roundScore = 0;
-activeplayer = 0;
+activePlayer = 0;
 
 
 document.querySelector('.dice').style.display = 'none';
@@ -37,6 +37,19 @@ function roll(){
     diceDOM.src = 'dice-' + diceValue + '.png';
 
     //Update round score if dice value is not 1
+
+    if (diceValue !== 1){
+        roundScore += diceValue;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    }
+    else{
+        // Change to next player
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        roundScore = 0;
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-1').textContent = '0';
+
+    }
 
 }
 
