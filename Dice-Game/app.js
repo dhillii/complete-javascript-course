@@ -70,8 +70,20 @@ function hold(){
      
     // Update UI
     document.querySelector('#score-' + activePlayer).textContent = playerScores[activePlayer];
-    nextPlayer();
+    
     // Check for winner 
+    if(playerScores[activePlayer] >= 100){
+        document.querySelector('#name-' + activePlayer).textContent = 'WINNER!!!';
+        document.querySelector('.dice').style.display = 'none';
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+    }
+        
+
+    else{
+        nextPlayer();
+    }
+        
 }
 
 
