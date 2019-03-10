@@ -60,8 +60,10 @@ function roll(){
 
         //Update round score if dice value is not 1
 
+        // A more efficient way of doing this is storing the last score value and comparing to the current idk why
+        // I did it this way ughhh.
+        
         if (dice0Value !== 1 && dice1Value !== 1){
-
             // If we see a 6 add to count
             if (dice0Value === 6 || dice1Value === 6){
                 sixCount += 1;  
