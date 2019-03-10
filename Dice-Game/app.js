@@ -64,11 +64,10 @@ function roll(){
                 document.querySelector('#score-' + activePlayer).textContent = playerScores[activePlayer];
                 nextPlayer();
             }
-            else{
-                roundScore += diceValue;
-                document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            
+            roundScore += diceValue;
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
 
-            }  
    
         }
     
