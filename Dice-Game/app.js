@@ -16,6 +16,7 @@ init();
 
 
 function init(){
+    // Setup
     playerScores = [0,0];
     roundScore = 0;
     sixCount = 0;
@@ -40,7 +41,6 @@ function roll(){
 
     if(gamePlaying){
 
-        
         // Get random number for dice roll
         diceValue = Math.floor(Math.random() * 6) + 1;
 
@@ -52,23 +52,21 @@ function roll(){
         //Update round score if dice value is not 1
 
         if (diceValue !== 1){
+
+            // If we see a 6 add to count
             if (diceValue === 6){
                 sixCount += 1;
-                console.log("Saw " + sixCount + " Sixes");
+                
             }
-
+            // if two 6's seen clear all scores and go to next player
             if (sixCount >= 2){
-                console.log("RESET");
                 roundScore = 0;
                 playerScores[activePlayer] = 0;
                 document.querySelector('#score-' + activePlayer).textContent = playerScores[activePlayer];
                 nextPlayer();
             }
-            
             roundScore += diceValue;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
-
-   
         }
     
         else{

@@ -150,6 +150,14 @@ i {
     box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
 }
 
+.goal {
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    transform: translateX(-50%);
+    font-size: 3rem;
+}
+
 
 
 .winner { background-color: #f7f7f7; }
