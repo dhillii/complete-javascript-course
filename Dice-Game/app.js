@@ -13,16 +13,16 @@ var playerScores, roundScore, activePlayer, gamePlaying, sixCount, goalScore;
 
 init();
 
-
-
 function init(){
-    // Setup
+    // Setup to initialize game
     playerScores = [0,0];
     roundScore = 0;
     sixCount = 0;
     activePlayer = 0;
     gamePlaying = true;
-    document.querySelector('.dice').style.display = 'none';
+    goalScore = 50;
+    document.querySelector('.dice-0').style.display = 'none';
+    document.querySelector('.dice-1').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
     document.getElementById('current-0').textContent = '0';
@@ -34,7 +34,6 @@ function init(){
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.add('active');
-    
 }
 
 document.querySelector('.goal-input').addEventListener('input', function(){
@@ -48,21 +47,27 @@ function roll(){
     if(gamePlaying){
 
         // Get random number for dice roll
-        diceValue = Math.floor(Math.random() * 6) + 1;
+        dice0Value = Math.floor(Math.random() * 6) + 1;
+        dice1Value = Math.floor(Math.random() * 6) + 1;
 
         // Display result
-        var diceDOM = document.querySelector('.dice');
-        diceDOM.style.display = 'block';
-        diceDOM.src = 'dice-' + diceValue + '.png';
+        var dice0DOM = document.querySelector('.dice-0');
+        var dice1DOM = document.querySelector('.dice-1');
+        dice0DOM.style.display = 'block';
+        dice1DOM.style.display = 'block';
+        dice0DOM.src = 'dice-' + dice0Value + '.png';
+        dice1DOM.src = 'dice-' + dice1Value + '.png';
 
         //Update round score if dice value is not 1
 
-        if (diceValue !== 1){
+        if (dice0Value !== 1 && dice1Value !== 1){
 
             // If we see a 6 add to count
-            if (diceValue === 6){
-                sixCount += 1;
-                
+            if (dice0Value === 6 || dice1Value === 6){
+                sixCount += 1;  
+                if(dice0Value === dice1Value){
+                    sixCount += 1;
+                }
             }
             // if two 6's seen clear all scores and go to next player
             if (sixCount >= 2){
@@ -71,16 +76,13 @@ function roll(){
                 document.querySelector('#score-' + activePlayer).textContent = playerScores[activePlayer];
                 nextPlayer();
             }
-            roundScore += diceValue;
+            roundScore += dice0Value + dice1Value;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         }
     
         else{
             // Change to next player
             nextPlayer();
-
-            //document.querySelector('.player-0-panel').classList.remove('active');
-            //document.querySelector('.player-1-panel').classList.add('active');
         }
 
     }
@@ -116,7 +118,8 @@ function hold(){
         // Check for winner 
         if(playerScores[activePlayer] >= goalScore){
             document.querySelector('#name-' + activePlayer).textContent = 'WINNER!!!';
-            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.dice-0').style.display = 'none';
+            document.querySelector('.dice-1').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
             gamePlaying = false;
