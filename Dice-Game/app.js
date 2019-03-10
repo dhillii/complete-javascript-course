@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var playerScores, roundScore, activePlayer, gamePlaying;
+var playerScores, roundScore, activePlayer, gamePlaying, sixCount;
 
 init();
 
@@ -18,6 +18,7 @@ init();
 function init(){
     playerScores = [0,0];
     roundScore = 0;
+    sixCount = 0;
     activePlayer = 0;
     gamePlaying = true;
     document.querySelector('.dice').style.display = 'none';
@@ -39,8 +40,9 @@ function roll(){
 
     if(gamePlaying){
 
+        
         // Get random number for dice roll
-        diceValue =  Math.floor(Math.random() * 6) + 1;
+        diceValue = Math.floor(Math.random() * 6) + 1;
 
         // Display result
         var diceDOM = document.querySelector('.dice');
@@ -50,9 +52,26 @@ function roll(){
         //Update round score if dice value is not 1
 
         if (diceValue !== 1){
-            roundScore += diceValue;
-            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            if (diceValue === 6){
+                sixCount += 1;
+                console.log("Saw " + sixCount + " Sixes");
+            }
+
+            if (sixCount >= 2){
+                console.log("RESET");
+                roundScore = 0;
+                playerScores[activePlayer] = 0;
+                document.querySelector('#score-' + activePlayer).textContent = playerScores[activePlayer];
+                nextPlayer();
+            }
+            else{
+                roundScore += diceValue;
+                document.querySelector('#current-' + activePlayer).textContent = roundScore;
+
+            }  
+   
         }
+    
         else{
             // Change to next player
             nextPlayer();
@@ -67,8 +86,10 @@ function roll(){
 }
 
 function nextPlayer(){
+    
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
         roundScore = 0;
+        sixCount = 0;
         document.getElementById('current-0').textContent = '0';
         document.getElementById('current-1').textContent = '0';
 
